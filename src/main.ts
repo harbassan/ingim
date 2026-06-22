@@ -3,18 +3,18 @@ import { convert, revert } from './convert.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <div class="page-container">
-  <h1>Ingim Text Converter</h1>
+  <h1>Ingim Translator</h1>
   <div class="input-box">
-    <h2>Input:</h2>
-    <textarea type="text" placeholder="Example" id="input" class="input"></textarea>
+    <textarea type="text" placeholder="Write text here" id="input" class="input"></textarea>
   </div>
+  <div class="button-container">
   <button id="switch-button" class="switchB">
     <span class="material-symbols-outlined">sync_alt</span>
   </button>
     <button id="translate-button" class="translateB">Translate</button>
+    </div>
   <div class="output-box">
-    <h2>Output:</h2>
-    <p id="output" class="output">Egzāmpəl</p>
+    <p id="output" class="output">Rāyt tekst hiə</p>
   </div>
 
 </div>
@@ -38,13 +38,15 @@ sBtn.addEventListener('click', () => {
   if (!convertMode) {
     sBtn.style.backgroundColor = '';
     convertMode = true;
-    console.log(convertMode)
   } else {
-    sBtn.style.backgroundColor = 'red';
+    sBtn.style.backgroundColor = '#29383D';
     convertMode = false;
-    console.log(convertMode)
   }
+  switchText()
 });
 
-window.convert = convert;
-window.revert = revert;
+function switchText() {
+  const temp = output.innerText
+  output.innerText = input.value
+  input.value = temp
+}
