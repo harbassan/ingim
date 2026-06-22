@@ -1,5 +1,5 @@
 import './style.css'
-
+import { convert } from './convert.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <h1>Ingim Text Converter</h1>
@@ -31,3 +31,6 @@ const newSpan = document.createElement('span');
 newSpan.classList.add('changed');
 newSpan.textContent = ' new text here';
 p.appendChild(newSpan);
+
+
+window.convert = convert;
