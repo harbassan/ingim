@@ -25,12 +25,25 @@ const output = document.getElementById("output");
 
 const tBtn = document.getElementById("translate-button");
 tBtn.addEventListener('click', () => {
-  output.textContent = `${convert(input.value)}`;
+  if (convertMode) {
+    output.textContent = `${convert(input.value)}`;
+  } else {
+    output.textContent = `${revert(input.value)}`;
+  }
 });
 
 const sBtn = document.getElementById("switch-button")
+let convertMode = true;
 sBtn.addEventListener('click', () => {
-  // output.textContent = `${revert([input.value])}`;
+  if (!convertMode) {
+    sBtn.style.backgroundColor = '';
+    convertMode = true;
+    console.log(convertMode)
+  } else {
+    sBtn.style.backgroundColor = 'red';
+    convertMode = false;
+    console.log(convertMode)
+  }
 });
 
 window.convert = convert;
