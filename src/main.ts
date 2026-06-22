@@ -1,5 +1,6 @@
 import './style.css'
 import { convert } from './convert.ts'
+import { revert } from './convert.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <h1>Ingim Text Converter</h1>
@@ -8,21 +9,29 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <h2>Input:</h2>
     <textarea type="text" placeholder="Example" id="input" class="input"></textarea>
   </div>
+  <button id="switch-button" class="switchB">
+    <span class="material-symbols-outlined">sync_alt</span>
+  </button>
   <div class="output-box">
     <h2>Output:</h2>
     <p id="output" class="output">Egzāmpəl</p>
   </div>
 </div>
-<button>Translate</button>
+<button id="translate-button" class="translateB">Translate</button>
 `
 
 
 const input = document.getElementById("input") as HTMLInputElement;
 const output = document.getElementById("output");
 
-const btn = document.querySelector('button');
-btn.addEventListener('click', () => {
+const tBtn = document.getElementById("translate-button");
+tBtn.addEventListener('click', () => {
   output.textContent = `${convert(input.value)}`;
+});
+
+const sBtn = document.getElementById("switch-button")
+sBtn.addEventListener('click', () => {
+  output.textContent = `${revert([input.value])}`;
 });
 
 

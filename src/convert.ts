@@ -35,3 +35,4 @@ export function toIngim(words: string[]) {
 export function convert(text: string) {
   return toIngim(toIPA(text)).join(" ");
 }
+
