@@ -4,17 +4,50 @@ import ingimData from "./ingim.json";
 const ipa = ipaData.en_UK[0] as unknown as Record<string, string>;
 const ingim = ingimData as unknown as Record<string, string>;
 
-function segment(text: string) {
-  return text.replace(/'/g, '').match(/\b\w+\b/g);
+const ingimReverse = Object.fromEntries(
+  Object.entries(ingim)
+    .reverse()
+    .map(([ipa, ing]) => [ing, ipa])
+);
+const ipaReverse = Object.fromEntries(
+  Object.entries(ipa).map(([base, ipa]) => [sanitiseIpa(ipa), base])
+);
+
+interface SanitisedWord {
+  wordIndex: number;
+  word: string;
+  leading: string | null;
+  trailing: string | null;
+  uppercase: boolean;
 }
 
-export function toIPA(text: string) {
-  const words = segment(text) ?? [];
-  return words.map(w => ipa[w]?.replace(/\u200D/g, "") ?? "baboon");
+function sanitise(text: string): SanitisedWord[] {
+  const words = text.split(/\s+/);
+
+  return words.map((word, index) => ({
+    wordIndex: index,
+    word: word.replace(/[^\w]/g, '').toLowerCase(),
+    leading: word.match(/^[^\w]+/)?.[0] ?? null,
+    trailing: word.match(/[^\w]+$/)?.[0] ?? null,
+    uppercase: /^\W*[A-Z]/.test(word),
+  }));
 }
 
-export function toIngim(words: string[]) {
-  return words.map(w => {
+function sanitiseIpa(word: string) {
+  return word?.replace(/\P{L}|[ˈ'ːˌ]|\u200D/gu, "");
+}
+
+export function baseToIpa(text: string[]) {
+  return text.map(w => sanitiseIpa(ipa[w]) ?? "baboon");
+}
+
+export function ipaToBase(text: string[]) {
+  return text.map(w => ipaReverse[w] ?? "baboon");
+}
+
+
+export function ipaToIngim(text: string[]) {
+  return text.map(w => {
     const chars = [...w];
     const result: string[] = [];
     let i = 0;
@@ -28,11 +61,52 @@ export function toIngim(words: string[]) {
         i++;
       }
     }
-    return result.join('').replace(/\P{L}|[ˈ'ːˌ]/gu, '');
+    return result.join('');
   });
 }
 
-export function convert(text: string) {
-  return toIngim(toIPA(text)).join(" ");
+// NOTE: inaccurate given multiple ipa chars map to a single ingim char
+export function ingimToIpa(text: string[]) {
+  return text.map(w => {
+    const chars = [...w];
+    const result: string[] = [];
+    let i = 0;
+    while (i < chars.length) {
+      const two = chars[i] + (chars[i + 1] ?? '');
+      if (ingimReverse[two] !== undefined) {
+        result.push(ingimReverse[two]);
+        i += 2;
+      } else {
+        result.push(ingimReverse[chars[i]] ?? chars[i]);
+        i++;
+      }
+    }
+    return result.join('');
+  });
 }
 
+export function convert(base: string) {
+  const sanitised = sanitise(base);
+  const converted = ipaToIngim(baseToIpa(sanitised.map(s => s.word)));
+
+  const output = converted.map((word, i) => {
+    const { leading, trailing, uppercase } = sanitised[i];
+    const cased = uppercase ? word[0].toUpperCase() + word.slice(1) : word;
+    return `${leading ?? ""}${cased}${trailing ?? ""}`;
+  });
+
+  return output.join(" ");
+}
+
+export function revert(converted: string) {
+  const sanitised = sanitise(converted);
+  const base = ipaToBase(ingimToIpa(sanitised.map(s => s.word)));
+
+  const output = base.map((word, i) => {
+    const { leading, trailing, uppercase } = sanitised[i];
+    const cased = uppercase ? word[0].toUpperCase() + word.slice(1) : word;
+    return `${leading ?? ""}${cased}${trailing ?? ""}`;
+  });
+
+  return output.join(" ");
+}

@@ -1,6 +1,5 @@
 import './style.css'
 import { convert } from './convert.ts'
-import { revert } from './convert.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <h1>Ingim Text Converter</h1>
@@ -20,7 +19,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <button id="translate-button" class="translateB">Translate</button>
 `
 
-
 const input = document.getElementById("input") as HTMLInputElement;
 const output = document.getElementById("output");
 
@@ -31,9 +29,7 @@ tBtn.addEventListener('click', () => {
 
 const sBtn = document.getElementById("switch-button")
 sBtn.addEventListener('click', () => {
-  output.textContent = `${revert([input.value])}`;
+  // output.textContent = `${revert([input.value])}`;
 });
-
-
 
 window.convert = convert;
