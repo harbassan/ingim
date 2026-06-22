@@ -36,3 +36,6 @@ export function convert(text: string) {
   return toIngim(toIPA(text)).join(" ");
 }
 
+// export function revert(text: string) {
+
+// }

@@ -1,10 +1,10 @@
 import './style.css'
 import { convert } from './convert.ts'
-import { revert } from './convert.ts'
+// import { revert } from './convert.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-<h1>Ingim Text Converter</h1>
-<div class="box">
+<div class="page-container">
+  <h1>Ingim Text Converter</h1>
   <div class="input-box">
     <h2>Input:</h2>
     <textarea type="text" placeholder="Example" id="input" class="input"></textarea>
@@ -12,12 +12,13 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <button id="switch-button" class="switchB">
     <span class="material-symbols-outlined">sync_alt</span>
   </button>
+    <button id="translate-button" class="translateB">Translate</button>
   <div class="output-box">
     <h2>Output:</h2>
     <p id="output" class="output">Egzāmpəl</p>
   </div>
+
 </div>
-<button id="translate-button" class="translateB">Translate</button>
 `
 
 
