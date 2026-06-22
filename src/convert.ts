@@ -10,11 +10,26 @@ function segment(text: string) {
 
 export function toIPA(text: string) {
   const words = segment(text) ?? [];
-  return words.map(w => ipa[w] ?? "baboon");
+  return words.map(w => ipa[w]?.replace(/\u200D/g, "") ?? "baboon");
 }
 
 export function toIngim(words: string[]) {
-  return words.map(w => [...w].map(c => ingim[c] ?? c).join().replace(/\P{L}|[ˈ'ː]/gu, ''));
+  return words.map(w => {
+    const chars = [...w];
+    const result: string[] = [];
+    let i = 0;
+    while (i < chars.length) {
+      const two = chars[i] + (chars[i + 1] ?? '');
+      if (ingim[two] !== undefined) {
+        result.push(ingim[two]);
+        i += 2;
+      } else {
+        result.push(ingim[chars[i]] ?? chars[i]);
+        i++;
+      }
+    }
+    return result.join('').replace(/\P{L}|[ˈ'ːˌ]/gu, '');
+  });
 }
 
 export function convert(text: string) {
