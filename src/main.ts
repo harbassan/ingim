@@ -1,9 +1,5 @@
 import './style.css'
-import { convert } from './convert.ts'
-<<<<<<< HEAD
-// import { revert } from './convert.ts'
-=======
->>>>>>> d8f9bc5905a299df6a4fb80155ba78ad95eafc08
+import { convert, revert } from './convert.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <div class="page-container">
@@ -38,3 +34,4 @@ sBtn.addEventListener('click', () => {
 });
 
 window.convert = convert;
+window.revert = revert;
