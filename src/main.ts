@@ -1,6 +1,9 @@
 import './style.css'
 import { convert } from './convert.ts'
+<<<<<<< HEAD
 // import { revert } from './convert.ts'
+=======
+>>>>>>> d8f9bc5905a299df6a4fb80155ba78ad95eafc08
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <div class="page-container">
@@ -21,7 +24,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 </div>
 `
 
-
 const input = document.getElementById("input") as HTMLInputElement;
 const output = document.getElementById("output");
 
@@ -32,9 +34,7 @@ tBtn.addEventListener('click', () => {
 
 const sBtn = document.getElementById("switch-button")
 sBtn.addEventListener('click', () => {
-  output.textContent = `${revert([input.value])}`;
+  // output.textContent = `${revert([input.value])}`;
 });
-
-
 
 window.convert = convert;
