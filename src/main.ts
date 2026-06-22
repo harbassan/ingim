@@ -10,27 +10,21 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   </div>
   <div class="output-box">
     <h2>Output:</h2>
-    <p id="output" class="output"> 
-      <span class="original">ex</span>
-      <span class="changed">New text added after</span>
-  </p>
+    <p id="output" class="output">Egzāmpəl</p>
   </div>
 </div>
+<button>Translate</button>
 `
 
 
 const input = document.getElementById("input") as HTMLInputElement;
 const output = document.getElementById("output");
 
-input.addEventListener("input", () => {
-  output.textContent = `${input.value}`;
+const btn = document.querySelector('button');
+btn.addEventListener('click', () => {
+  output.textContent = `${convert(input.value)}`;
 });
 
-const p = document.querySelector('p');
-const newSpan = document.createElement('span');
-newSpan.classList.add('changed');
-newSpan.textContent = ' new text here';
-p.appendChild(newSpan);
 
 
 window.convert = convert;
