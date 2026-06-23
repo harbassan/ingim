@@ -22,7 +22,7 @@ interface SanitisedWord {
 }
 
 function sanitise(text: string): SanitisedWord[] {
-  const words = text.split(/\s+/);
+  const words = text.split(/\s+/).filter(Boolean);
 
   return words.map((word, index) => ({
     wordIndex: index,
