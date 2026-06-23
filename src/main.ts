@@ -46,7 +46,7 @@ translateBtn.addEventListener('click', () => {
   output.textContent = `${fn(input.value)}`;
   if (output.textContent && output.classList.contains("placeholder")) {
     output.classList.remove("placeholder");
-  } else if (!output.textContent && !output.classList.contains("placeholder")) {
+  } else if (!output.textContent) {
     output.classList.add("placeholder");
     output.textContent = "Translation";
   }
