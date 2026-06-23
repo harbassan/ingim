@@ -23,7 +23,8 @@ body {
   box-sizing: border-box;
 }
 
-.input::placeholder, p.placeholder {
+.input::placeholder,
+p.placeholder {
   color: #B2C2C599;
 }
 
@@ -33,7 +34,7 @@ body {
   background-color: #1A252A;
   border: none;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06),
-              0 2px 8px rgba(0, 0, 0, 0.06);
+    0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .input {
@@ -45,6 +46,10 @@ body {
   color: inherit;
   box-sizing: border-box;
   margin: 0;
+}
+
+textarea:focus {
+  outline-color: #B2C2C599;
 }
 
 
@@ -88,7 +93,7 @@ h2 {
   background-color: #29383D;
 }
 
-.switchB > span {
+.switchB>span {
   font-size: 1.25rem;
 }
 
@@ -100,7 +105,7 @@ button {
   cursor: pointer;
   font: inherit;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06),
-              0 2px 8px rgba(0, 0, 0, 0.06);
+    0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 button:hover {
