@@ -112,10 +112,10 @@ button.active:hover {
 }
 
 .button-container {
-  margin: 1rem 0;
+  margin: -0.9rem 0;
   display: flex;
   justify-content: center;
-  gap: 3px;
+  gap: 0.25rem;
 }
 
 .muted {
