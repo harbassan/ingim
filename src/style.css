@@ -50,6 +50,7 @@ p.placeholder {
 
 textarea:focus {
   outline-color: #B2C2C599;
+  outline: solid;
 }
 
 
